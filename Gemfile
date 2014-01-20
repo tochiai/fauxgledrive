@@ -50,4 +50,7 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
+gem 'rspec-rails'
+gem 'pry'
+
 ruby '2.0.0'
