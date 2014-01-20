@@ -31,5 +31,3 @@ describe UserFilesController do
 		end
 	end
 end
-
-#change to solo branch
