@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20140120023732) do
   create_table "user_files", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.binary   "file_data"
     t.string   "name"
     t.string   "local_path"
   end
