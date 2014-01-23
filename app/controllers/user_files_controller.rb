@@ -63,9 +63,9 @@ class UserFilesController < ApplicationController
 
   def save_file(file_object)
     basename = File.basename(file_object)
+    FileUtils.cp(file_object.path, "/tmp/fauxgle_drive/")
     f = UserFile.new(name: basename, local_path: "/tmp/fauxgle_drive/#{basename}")
     f.save
-    FileUtils.cp(file_object.path, "/tmp/fauxgle_drive/#{basename}")
   end
 
   def get_file_by_name(name)
