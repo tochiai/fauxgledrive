@@ -11,11 +11,8 @@ describe UserFile do
     context "without local path" do
       let(:params) { {name: "butt"} }
 
-      it "is invalid" do
+      it "is invalid with errors" do
         subject.should_not be_valid
-      end
-
-      it "gets errors" do
         subject.should have(1).error_on(:local_path)
       end
     end
@@ -23,11 +20,8 @@ describe UserFile do
     context "without name" do
       let(:params) { {local_path: "/buuty/buuty"} }
 
-      it "requires name" do
+      it "is invalid with errors" do
         subject.should_not be_valid
-      end
-
-      it "gets errors" do
         subject.should have(1).error_on(:name)
       end
     end
@@ -37,9 +31,6 @@ describe UserFile do
 
       it "requires a real-ass file to be at the end of that path, fool" do
         subject.should_not be_valid
-      end
-
-      it "gets errors" do
         subject.should have(1).error_on(:local_path)
       end
     end
@@ -48,6 +39,18 @@ describe UserFile do
       let(:params) { {local_path: "/dev/null", name: "buuty"} }
       it "is valid" do
         subject.should be_valid
+      end
+    end
+
+    context "with a non-unique name" do
+      let(:params) { {local_path: "/dev/null", name: "buuty"} }
+      before do
+        UserFile.new(params).save
+      end
+
+      it "is invalid with errors" do
+        subject.should be_invalid
+        subject.should have(1).error_on(:name)
       end
     end
   end

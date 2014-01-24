@@ -1,6 +1,6 @@
 class UserFile < ActiveRecord::Base
   validates :local_path, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validate :file_exists, if: :local_path
 
   def self.from_path(file_path)
