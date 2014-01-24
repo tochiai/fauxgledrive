@@ -14,7 +14,17 @@ class UserFilesController < ApplicationController
 
   # GET /user_files/new
   def new
-    @user_file = UserFile.new
+    #nuffin
+  end
+
+  def upload
+    local_path = Rails.root.join('public', 'uploads', params[:upload_file].original_filename)
+    File.open(local_path, 'wb') do |file|
+      file.write(params[:upload_file].read)
+    end
+    UserFile.from_path(local_path.to_s).save
+
+    redirect_to "/user_files"
   end
 
   # GET /user_files/1/edit
@@ -61,13 +71,6 @@ class UserFilesController < ApplicationController
     end
   end
 
-  def save_file(file_object)
-    basename = File.basename(file_object)
-    FileUtils.cp(file_object.path, "/tmp/fauxgle_drive/")
-    f = UserFile.new(name: basename, local_path: "/tmp/fauxgle_drive/#{basename}")
-    f.save
-  end
-
   def get_file_by_name(name)
     queried_file = UserFile.find_by name: name
     File.open(queried_file.local_path)
@@ -81,6 +84,6 @@ class UserFilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_file_params
-      params[:user_file]
+      params[:user_file].permit(:name, :local_path)
     end
 end
