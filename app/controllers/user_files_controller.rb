@@ -19,11 +19,13 @@ class UserFilesController < ApplicationController
   end
 
   def upload
-    local_path = Rails.root.join('public', 'uploads', params[:upload_file].original_filename)
+    name = params[:name] || params[:upload_file].original_filename
+    local_path = Rails.root.join('public', 'uploads', name)
     File.open(local_path, 'wb') do |file|
       file.write(params[:upload_file].read)
     end
-    UserFile.from_path(local_path.to_s).save
+
+    UserFile.new(name: name, local_path: local_path.to_s).save
 
     redirect_to "/user_files"
   end
