@@ -36,4 +36,8 @@ describe UserFilesController do
       returned_file.read.should == File.read("spec/fixtures/fart.txt")
     end
   end
+
+  describe "get /user_files/:id" do
+    it ""
+  end
 end

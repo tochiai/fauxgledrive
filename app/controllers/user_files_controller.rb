@@ -10,6 +10,7 @@ class UserFilesController < ApplicationController
   # GET /user_files/1
   # GET /user_files/1.json
   def show
+    send_file @user_file.local_path
   end
 
   # GET /user_files/new
