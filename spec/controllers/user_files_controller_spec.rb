@@ -45,15 +45,6 @@ describe UserFilesController do
     end
   end
 
-  describe "#get_file_by_name" do
-    before { post :upload, upload_file: file_object }
-    it "returns a file object containing the desired file" do
-      returned_file = subject.get_file_by_name("fart.txt")
-      returned_file.should be_a File
-      returned_file.read.should == File.read("spec/fixtures/fart.txt")
-    end
-  end
-
   describe "get /user_files/:id" do
     it ""
   end
