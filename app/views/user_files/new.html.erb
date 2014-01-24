@@ -2,6 +2,8 @@
 
 <%= form_tag("/upload", multipart: true) do %>
    <%= file_field_tag 'upload_file' %>
+  <%= label_tag "name", "Name:" -%>
+  <%= text_field_tag 'name' %>
    <%= submit_tag %>
 <% end %>
 
